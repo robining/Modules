@@ -16,7 +16,7 @@ public class StateViewAssist {
     public static final int STATE_NEED_LOGIN = -6;
 
     public static final int MODE_REPLACE = -1;
-    public static final int MODE_HIDE = -2;
+    public static final int MODE_OVERRIDE = -2;
 
     private SparseArray<ViewFactory> factoryMap;
     private int mode;
@@ -97,14 +97,14 @@ public class StateViewAssist {
             IVaryViewHelper varyViewHelper = (IVaryViewHelper) target.getTag(R.id.com_robining_android_stateview_tag_varyViewHelper);
             if (varyViewHelper == null) {
                 switch (mode) {
-                    case MODE_HIDE:
+                    case MODE_OVERRIDE:
                         varyViewHelper = new VaryViewHelperX(target);
                         break;
                     case MODE_REPLACE:
                         varyViewHelper = new VaryViewHelper(target);
                         break;
                     default:
-                        throw new IllegalArgumentException("not support this mode:\"" + mode + "\", to see StateViewAssist.MODE_REPLACE or StateViewAssist.MODE_HIDE");
+                        throw new IllegalArgumentException("not support this mode:\"" + mode + "\", to see StateViewAssist.MODE_REPLACE or StateViewAssist.MODE_OVERRIDE");
                 }
 
                 target.setTag(R.id.com_robining_android_stateview_tag_varyViewHelper, varyViewHelper);
@@ -161,8 +161,8 @@ public class StateViewAssist {
         }
 
         public Builder setMode(int mode) {
-            if (mode != MODE_REPLACE && mode != MODE_HIDE) {
-                throw new IllegalArgumentException("not support this mode:\"" + mode + "\", to see StateViewAssist.MODE_REPLACE or StateViewAssist.MODE_HIDE");
+            if (mode != MODE_REPLACE && mode != MODE_OVERRIDE) {
+                throw new IllegalArgumentException("not support this mode:\"" + mode + "\", to see StateViewAssist.MODE_REPLACE or StateViewAssist.MODE_OVERRIDE");
             }
             this.mode = mode;
             return this;
