@@ -23,20 +23,20 @@ class MainActivity : AppCompatActivity() {
             .configParams(StateViewAssist.STATE_LOADING, mapOf(
                 Pair(DefaultViewFactory.PARAMS_KEY_MESSAGE,"Global我在加载....")
             ))
-            .build()
+            .buildWith(fl_content)
 
         btnNormal.setOnClickListener {
-            stateViewAssist.restore(fl_content)
+            stateViewAssist.restore()
         }
 
         btnLoading.setOnClickListener {
-            stateViewAssist.show(fl_content, StateViewAssist.STATE_LOADING, mapOf(
+            stateViewAssist.show(StateViewAssist.STATE_LOADING, mapOf(
                 Pair(DefaultViewFactory.PARAMS_KEY_MESSAGE, "正在加载文章")
             ))
         }
 
         btnError.setOnClickListener {
-            stateViewAssist.show(fl_content, StateViewAssist.STATE_ERROR, mapOf(
+            stateViewAssist.show(StateViewAssist.STATE_ERROR, mapOf(
                 Pair(DefaultViewFactory.PARAMS_KEY_MESSAGE, "加载失败啦!!"),
                 Pair(DefaultViewFactory.PARAMS_KEY_RETRY_RUNNABLE, Runnable {
                     Toast.makeText(this@MainActivity,"加载失败重试",Toast.LENGTH_SHORT).show()
@@ -46,14 +46,14 @@ class MainActivity : AppCompatActivity() {
 
         btnEmpty.setOnClickListener {
             stateViewAssist.show(
-                fl_content, StateViewAssist.STATE_EMPTY, mapOf(
+                StateViewAssist.STATE_EMPTY, mapOf(
                     Pair(DefaultViewFactory.PARAMS_KEY_MESSAGE, "您还没有创建新的文章哟")
                 )
             )
         }
 
         btnNoNetwork.setOnClickListener {
-            stateViewAssist.show(fl_content, StateViewAssist.STATE_NOT_NETWORK, mapOf(
+            stateViewAssist.show(StateViewAssist.STATE_NOT_NETWORK, mapOf(
                 Pair(DefaultViewFactory.PARAMS_KEY_MESSAGE, "检测到您还没有开启网络"),
                 Pair(DefaultViewFactory.PARAMS_KEY_RETRY_RUNNABLE, Runnable {
                     Toast.makeText(this@MainActivity,"没有网络重试",Toast.LENGTH_SHORT).show()
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnNeedLogin.setOnClickListener {
-            stateViewAssist.show(fl_content, StateViewAssist.STATE_NEED_LOGIN, mapOf(
+            stateViewAssist.show(StateViewAssist.STATE_NEED_LOGIN, mapOf(
                 Pair(DefaultViewFactory.PARAMS_KEY_MESSAGE, "请在登录后查看该内容!"),
                 Pair(DefaultViewFactory.PARAMS_KEY_BUTTON_RETRY_TEXT,"我已经登录啦"),
                 Pair(DefaultViewFactory.PARAMS_KEY_RETRY_RUNNABLE, Runnable {

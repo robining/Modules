@@ -21,6 +21,7 @@ public class StateViewAssist {
     private SparseArray<ViewFactory> factoryMap;
     private int mode;
     private SparseArray<Map<String, Object>> defaultParamsMap;
+    private View target;
 
     private StateViewAssist(Builder builder) {
         this.factoryMap = builder.factoryMap;
@@ -29,24 +30,48 @@ public class StateViewAssist {
     }
 
     public void show(View target, int state, Map<String, Object> args) {
+        assertNotNull(target, "the target view cannot be null");
         IVaryViewHelper varyViewHelper = getVaryViewHelper(target);
         varyViewHelper.showLayout(getReplaceView(target, state, args));
         target.setTag(R.id.com_robining_android_stateview_tag_state, state);
     }
 
+    public void show(int state, Map<String, Object> args) {
+        show(target, state, args);
+    }
+
     public void restore(View target) {
+        assertNotNull(target, "the target view cannot be null");
         IVaryViewHelper varyViewHelper = getVaryViewHelper(target);
         varyViewHelper.restoreView();
         target.setTag(R.id.com_robining_android_stateview_tag_state, StateViewAssist.STATE_NORMAL);
     }
 
+    public void restore() {
+        restore(target);
+    }
+
     public int getCurrentState(View target) {
+        assertNotNull(target, "the target view cannot be null");
         Object state = target.getTag(R.id.com_robining_android_stateview_tag_state);
         if (state == null) {
             return StateViewAssist.STATE_NORMAL;
         } else {
             return (int) state;
         }
+    }
+
+    public int getCurrentState() {
+        return getCurrentState(target);
+    }
+
+    public View getTarget() {
+        return target;
+    }
+
+    public StateViewAssist setTarget(View target) {
+        this.target = target;
+        return this;
     }
 
     public static void notifyLogin(Context context) {
@@ -90,6 +115,12 @@ public class StateViewAssist {
 
     public Builder newBuilder() {
         return new Builder(this);
+    }
+
+    private void assertNotNull(Object object, String message) {
+        if (object == null) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     public static class Builder {
@@ -139,6 +170,10 @@ public class StateViewAssist {
 
         public StateViewAssist build() {
             return new StateViewAssist(this);
+        }
+
+        public StateViewAssist buildWith(View target) {
+            return new StateViewAssist(this).setTarget(target);
         }
     }
 
