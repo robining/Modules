@@ -1,1 +1,1 @@
-include ':app', ':stateview', ':retrofit2Progress', ':paramsInject', ':titlebar', ':rxjava2Loading', ':ui'
+include ':app', ':stateview', ':retrofit2-progress', ':params-inject', ':titlebar', ':rxjava2-loading', ':ui'
