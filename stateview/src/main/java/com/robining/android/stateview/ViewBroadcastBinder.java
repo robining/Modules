@@ -90,9 +90,9 @@ public class ViewBroadcastBinder {
     }
 
     public static void bindNetworkListener(View view, final Runnable runnable) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            bindNetworkListenerN(view, runnable);
-//        } else {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            bindNetworkListenerN(view, runnable);
+        } else {
             bindGlobal(view, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION), new BroadcastResultFilter() {
                 @Override
                 public boolean filter(Context context, Intent intent) {
@@ -104,7 +104,7 @@ public class ViewBroadcastBinder {
                     return mobileNetworkInfo.isConnected() || wifiNetworkInfo.isConnected();
                 }
             }, runnable);
-//        }
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
