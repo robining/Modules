@@ -1,6 +1,6 @@
-### 参数注入工具
+### 页面状态切换工具
+<video src="./videos/stateview.mp4"></video>
 
-在Android开发过程中页面间传值和保持恢复传值，利用Java反射和注解，将指定对象中包含@AutoParam注解的字段自动赋值
 
 #### 一.添加依赖
 在项目根目录的build.gradle文件中配置
@@ -52,7 +52,7 @@ stateViewAssist.show(
                     Pair(DefaultViewFactory.PARAMS_KEY_MESSAGE, "您还没有创建新的文章哟") //空布局文字
                 )
             )       
-//显示没有网络，可以前往设置，也可以点击重试【在网络恢复时，可以主动触发重试】
+//显示没有网络，可以前往设置，也可以点击重试【在网络恢复时，可以自动触发重试】
 stateViewAssist.show(StateViewAssist.STATE_NOT_NETWORK, mapOf(
                 Pair(DefaultViewFactory.PARAMS_KEY_MESSAGE, "检测到您还没有开启网络"),
                 Pair(DefaultViewFactory.PARAMS_KEY_RETRY_RUNNABLE, Runnable {
@@ -60,7 +60,7 @@ stateViewAssist.show(StateViewAssist.STATE_NOT_NETWORK, mapOf(
                 })
             ))
             
-//显示需要登录后使用，可以前往登录
+//显示需要登录后使用，可以前往登录（当登录成功后可以自动触发重试）
 stateViewAssist.show(StateViewAssist.STATE_NEED_LOGIN, mapOf(
                 Pair(DefaultViewFactory.PARAMS_KEY_MESSAGE, "请在登录后查看该内容!"),
                 Pair(DefaultViewFactory.PARAMS_KEY_BUTTON_RETRY_TEXT,"我已经登录啦"),
@@ -71,13 +71,16 @@ stateViewAssist.show(StateViewAssist.STATE_NEED_LOGIN, mapOf(
                     Toast.makeText(this@MainActivity,"我是重试点击事件",Toast.LENGTH_SHORT).show()
                 })
             ))
+            
+ //发送登录成功的通知
+ StateViewAssist.notifyLogin(this@MainActivity)
 
 /*若不需要更改参数第二个参数可以传null*/
 ```
 #### 三.自定义布局
 
 ##### 1.定义ViewFactory
-参照[DefaultViewFactory](../stateview/src/main/java/com/robining/android/stateview/DefaultViewFactory.java)(也可以在DefaultViewFactory里面使用自定义参数)
+参照[DefaultViewFactory](../stateview/src/main/java/com/robining/android/stateview/DefaultViewFactory.java)(也可以在ViewFactory里面使用自定义参数)
 ```java
 static final StateViewAssist.ViewFactory NEED_LOGIN = new StateViewAssist.ViewFactory() {
         @Override
