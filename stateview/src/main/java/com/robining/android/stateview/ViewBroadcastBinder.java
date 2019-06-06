@@ -36,14 +36,12 @@ public class ViewBroadcastBinder {
 
             @Override
             public void onViewAttachedToWindow(View v) {
-                System.out.println(">>>注册:" + this);
                 LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(v.getContext());
                 localBroadcastManager.registerReceiver(broadcastReceiver, filter);
             }
 
             @Override
             public void onViewDetachedFromWindow(View v) {
-                System.out.println(">>>取消注册" + this);
                 LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(v.getContext());
                 localBroadcastManager.unregisterReceiver(broadcastReceiver);
             }
@@ -73,13 +71,11 @@ public class ViewBroadcastBinder {
 
             @Override
             public void onViewAttachedToWindow(View v) {
-                System.out.println(">>>注册:" + this);
                 ViewContextUtil.getActivity(v).registerReceiver(broadcastReceiver, filter);
             }
 
             @Override
             public void onViewDetachedFromWindow(View v) {
-                System.out.println(">>>取消注册" + this);
                 ViewContextUtil.getActivity(v).unregisterReceiver(broadcastReceiver);
             }
         });
@@ -99,8 +95,6 @@ public class ViewBroadcastBinder {
                     ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
                     NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-                    System.out.println(">>>network changed:" + mobileNetworkInfo.isConnected() + "/" + wifiNetworkInfo.isConnected() + "    " + mobileNetworkInfo.isAvailable() + "/" + wifiNetworkInfo.isAvailable());
                     return mobileNetworkInfo.isConnected() || wifiNetworkInfo.isConnected();
                 }
             }, runnable);
