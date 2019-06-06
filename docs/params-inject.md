@@ -11,6 +11,29 @@ maven { url 'https://jitpack.io' }
 
 在模块目录下的build.gradle中配置
 ```Gradle
-implementation 'com.github.robining.Modules:retrofit2-progress:XXX'
+implementation 'com.github.robining.Modules:params-inject:XXX'
 ```
 [![Release](https://jitpack.io/v/com.github.robining/Modules.svg?style=flat-square)](https://github.com/robining/Modules/tree/master/params-inject)
+
+
+#### 二.使用
+```kotlin
+class MainActivity : AppCompatActivity() {
+    @AutoParam("key1")
+    var title:String = "Default Title"
+    
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        AutoParamCompat.injectValue(this,savedInstanceState,intent.extras)
+    }
+    
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        AutoParamCompat.saveValues(this,outState) //可选
+    }
+}
+
+var intent = Intent(context,MainActivity::class.java)
+intent.putExtra("key1","This is Title Value")
+startActivity(intent)
+```
