@@ -75,7 +75,7 @@ stateViewAssist.show(StateViewAssist.STATE_NEED_LOGIN, mapOf(
  //发送登录成功的通知
  StateViewAssist.notifyLogin(this@MainActivity)
 
-/*若不需要更改参数第二个参数可以传null*/
+/*若不需要更改参数第二个参数可以传null  或  调用show(int state)方法*/
 ```
 #### 三.自定义布局
 

@@ -40,6 +40,10 @@ public class StateViewAssist {
         show(target, state, args);
     }
 
+    public void show(int state) {
+        show(state, null);
+    }
+
     public void restore(View target) {
         assertNotNull(target, "the target view cannot be null");
         IVaryViewHelper varyViewHelper = getVaryViewHelper(target);
