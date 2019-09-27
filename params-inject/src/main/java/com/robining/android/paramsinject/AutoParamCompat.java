@@ -12,7 +12,6 @@ import java.lang.reflect.Field;
 /**
  * 主要做自动取值和自动存储
  * 在onCreate和onSaveInstance处调用
- * 但是需要注意！！！！：此方式不能保证在onCreate中取到值
  * Created by LuoHaifeng on 2017/3/8.
  */
 
